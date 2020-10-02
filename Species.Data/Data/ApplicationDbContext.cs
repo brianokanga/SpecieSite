@@ -5,14 +5,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Species.Data.Models;
 
-namespace Species.Data.Data
-{
-    public class ApplicationDbContext : IdentityDbContext
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+namespace Species.Data.Data {
+    public class ApplicationDbContext : IdentityDbContext {
+        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base (options) { }
 
         public DbSet<County> Counties { get; set; }
         public DbSet<SubCounty> SubCounties { get; set; }
