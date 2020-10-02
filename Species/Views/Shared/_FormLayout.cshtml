@@ -1,0 +1,79 @@
+﻿@*@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KCB 2JIAJIRI</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib_bower/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/lib_bower/metisMenu/metisMenu.css" />
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib_bower/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/lib_bower/metisMenu/metisMenu.min.css" />
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    </environment>
+
+    @*@Html.Raw(JavaScriptSnippet.FullScript)*@
+</head>
+<body>
+
+    <!-- Wrapper-->
+    <div id="wrapper" class="#">
+
+        <!-- Navigation -->
+        @await Html.PartialAsync("_Navigation")
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+
+            <!-- Top Navbar -->
+            @await Html.PartialAsync("_TopNavbar")
+
+            <!-- Form view  -->
+            @await Html.PartialAsync("_FormView")
+
+            <!-- Footer -->
+            @await Html.PartialAsync("_Footer")
+
+        </div>
+        <!-- End page wrapper-->
+
+    </div>
+    <!-- End wrapper-->
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib_bower/metisMenu/metisMenu.js"></script>
+        <script src="~/lib_bower/slimScroll/jquery.slimscroll.js"></script>
+        <script src="~/lib_bower/pace/pace.min.js"></script>
+        <script src="~/js/script.js"></script>
+
+        <!-- Only for demo purpose -->
+        <script src="~/js/skin.config.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/lib_bower/metisMenu/metisMenu.min.js"></script>
+        <script src="~/lib_bower/pace/pace.min.js"></script>
+        <script src="~/lib_bower/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="~/js/script.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

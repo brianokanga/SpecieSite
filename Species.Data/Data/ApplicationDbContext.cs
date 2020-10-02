@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Species.Data.Models;
 
 namespace Species.Data.Data
 {
@@ -12,5 +13,12 @@ namespace Species.Data.Data
             : base(options)
         {
         }
+
+        public DbSet<County> Counties { get; set; }
+        public DbSet<SubCounty> SubCounties { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Specie> Species { get; set; }
+        public DbSet<SpecieInformation> SpecieInformations { get; set; }
+
     }
 }

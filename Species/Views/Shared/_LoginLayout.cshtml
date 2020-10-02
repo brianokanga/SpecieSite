@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> @ViewData["Title"] - SPECIES TO SITE MATCHING</title>
+
+
+
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib_bower/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link href="~/css/loginsplash.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/loginstyle.css" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib_bower/font-awesome/css/font-awesome.min.css" />
+        <link href="~/css/loginsplash.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/loginstyle.css" asp-append-version="true" />
+    </environment>
+
+</head>
+
+<body class="gray-bg">
+    <div class="background-element">
+        <div id="login-panel" class="login-panel" style="display:block;">
+            <div class="login-panel-inner">
+                <div class="panel panel-more">
+                    @*@Html.Partial("_Notifications")*@
+                    <div class="panel-title">
+                        <center id="page-loading">
+                            <div class="spinner">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </center>
+
+                        <div class="fadeInRight">
+                            <div>
+                                @RenderBody()
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="panel-footer footer footer-more">
+                        <div class="col-xs-8 footer-inner">
+                            <div class="copyright-area">
+                                <h4>&copy; @DateTime.Now.Year SPECIES TO SITE MATCHING</h4>
+
+
+                            </div>
+
+                        </div>
+                        <div class="col-xs-4">
+                            <img class="img-responsive govt-logo" src="~/Images/Logos/logo-colour-250px.png" />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bg-info login-side-main login-bg-brand">
+            <div class="">
+                <div class="outer">
+                    <div class="middle">
+                        <div class="inner">
+
+                            <h1></h1>
+                            <br />
+                            <h4 style="font-style:italic;"></h4>
+                            <br />
+                            <blockquote class="col-md-8">
+                                
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function (event) {
+            /*VANILLA JAVASCRIPT*/
+            var element = document.getElementById("page-loading");
+            element.parentNode.removeChild(element);
+            /* OR WITH jQuery*/
+            $('#page-loading')
+                .fadeOut('slow');
+        });
+    </script>
+
+
+
+    <!-- Mainly scripts -->
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script src="~/js/script.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script src="~/js/script.js" asp-append-version="true"></script>
+    </environment>
+
+
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>
