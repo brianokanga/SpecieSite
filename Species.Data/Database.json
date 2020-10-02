@@ -1,5 +1,0 @@
-﻿{
-  "ConnectionStrings": {
-    "DefaultConnection": "server=DESKTOP-TTU7UFO\\SQLEXPRESS; database=SpecieSiteDb; Integrated Security=true"
-  }
-}
