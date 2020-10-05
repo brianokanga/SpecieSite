@@ -24,6 +24,10 @@ namespace Species.Areas.Customer.Controllers
             return View();
         }
 
+        public IActionResult PlantRequest()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -34,5 +38,7 @@ namespace Species.Areas.Customer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+       
     }
 }

@@ -9,7 +9,7 @@ using Species.ViewModels;
 
 namespace Species.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Customer")]
     public class PlantRequestController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
