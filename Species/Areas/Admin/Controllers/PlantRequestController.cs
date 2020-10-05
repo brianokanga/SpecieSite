@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Species.Data.Models;
 using Species.Data.Repository.IRepository;
+using Species.ViewModels;
+
 
 namespace Species.Areas.Admin.Controllers
 {
@@ -24,42 +28,66 @@ namespace Species.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
-            PlantRequest plantRequest = new PlantRequest();
+            PlantRequestViewModel plantRequestViewModel = new PlantRequestViewModel()
+            {
+                PlantRequest = new PlantRequest(),
+                CountyList = _unitOfWork.County.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                SubCountyList = _unitOfWork.SubCounty.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                LocationList = _unitOfWork.Location.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                SpecieList = _unitOfWork.Specie.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+
+            };
             if (id == null)
             {
                 //this is for create
-                return View(plantRequest);
+                return View(plantRequestViewModel);
             }
             //this is for edit
-            plantRequest = _unitOfWork.PlantRequest.Get(id.GetValueOrDefault());
-            if (plantRequest == null)
+            plantRequestViewModel.PlantRequest = _unitOfWork.PlantRequest.Get(id.GetValueOrDefault());
+            if (plantRequestViewModel.PlantRequest == null)
             {
                 return NotFound();
             }
-            return View(plantRequest);
+            return View(plantRequestViewModel);
 
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Upsert(PlantRequest plantRequest)
-        {
-            if (ModelState.IsValid)
-            {
-                if (plantRequest.Id == 0)
-                {
-                    _unitOfWork.PlantRequest.Add(plantRequest);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Upsert(PlantRequest plantRequest)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (plantRequest.Id == 0)
+        //        {
+        //            _unitOfWork.PlantRequest.Add(plantRequest);
 
-                }
-                else
-                {
-                    _unitOfWork.PlantRequest.Update(plantRequest);
-                }
-                _unitOfWork.Save();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(plantRequest);
-        }
+        //        }
+        //        else
+        //        {
+        //            _unitOfWork.PlantRequest.Update(plantRequest);
+        //        }
+        //        _unitOfWork.Save();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(plantRequest);
+        //}
 
 
         #region API CALLS
@@ -67,7 +95,7 @@ namespace Species.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _unitOfWork.PlantRequest.GetAll();
+            var allObj = _unitOfWork.PlantRequest.GetAll(includeProperties:"County, SubCounty, Location, Specie");
             return Json(new { data = allObj });
         }
 
