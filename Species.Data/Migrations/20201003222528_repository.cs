@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Species.Data.Migrations
 {
-    public partial class RepositoryPattern : Migration
+    public partial class repository : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -220,6 +220,46 @@ namespace Species.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlantRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CountyId = table.Column<int>(nullable: true),
+                    SubCountyId = table.Column<int>(nullable: true),
+                    LocationId = table.Column<int>(nullable: true),
+                    SpecieId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlantRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlantRequests_Counties_CountyId",
+                        column: x => x.CountyId,
+                        principalTable: "Counties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PlantRequests_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PlantRequests_Species_SpecieId",
+                        column: x => x.SpecieId,
+                        principalTable: "Species",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PlantRequests_SubCounties_SubCountyId",
+                        column: x => x.SubCountyId,
+                        principalTable: "SubCounties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SpecieInformations",
                 columns: table => new
                 {
@@ -292,6 +332,26 @@ namespace Species.Data.Migrations
                 column: "SubcountyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PlantRequests_CountyId",
+                table: "PlantRequests",
+                column: "CountyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlantRequests_LocationId",
+                table: "PlantRequests",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlantRequests_SpecieId",
+                table: "PlantRequests",
+                column: "SpecieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlantRequests_SubCountyId",
+                table: "PlantRequests",
+                column: "SubCountyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SpecieInformations_LocationId",
                 table: "SpecieInformations",
                 column: "LocationId");
@@ -323,6 +383,9 @@ namespace Species.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "PlantRequests");
 
             migrationBuilder.DropTable(
                 name: "SpecieInformations");

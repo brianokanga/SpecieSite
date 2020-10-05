@@ -23,7 +23,7 @@ namespace Species.Data.Repository
             if (objFromDb != null)
             {
                 objFromDb.Name = county.Name;
-
+                objFromDb.SubCounties = county.SubCounties;
             }
         }
     }

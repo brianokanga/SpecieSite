@@ -19,6 +19,7 @@ namespace Species.Data.Repository
             Location = new LocationRepository(_db);
             Specie = new SpecieRepository(_db);
             SpecieInformation = new SpecieInformationRepository(_db);
+            PlantRequest = new PlantRequestRepository(_db);
             SP_Call = new SP_Call(_db);
         }
 
@@ -27,6 +28,7 @@ namespace Species.Data.Repository
         public ILocationRepository Location { get; private set; }
         public ISpecieRepository Specie { get; private set; }
         public ISpecieInformationRepository SpecieInformation { get; private set; }
+        public IPlantRequestRepository PlantRequest { get; private set; }
         public ISP_Call SP_Call { get; private set; }
 
         public void Dispose()

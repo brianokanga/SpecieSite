@@ -10,8 +10,8 @@ using Species.Data.Data;
 namespace Species.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201002085618_RepositoryPattern")]
-    partial class RepositoryPattern
+    [Migration("20201005024025_plantRequest")]
+    partial class plantRequest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -259,6 +259,33 @@ namespace Species.Data.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("Species.Data.Models.PlantRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CountyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpecieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountyId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("SpecieId");
+
+                    b.ToTable("PlantRequests");
+                });
+
             modelBuilder.Entity("Species.Data.Models.Specie", b =>
                 {
                     b.Property<int>("Id")
@@ -315,9 +342,14 @@ namespace Species.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PlantRequestId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CountyId");
+
+                    b.HasIndex("PlantRequestId");
 
                     b.ToTable("SubCounties");
                 });
@@ -382,6 +414,21 @@ namespace Species.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Species.Data.Models.PlantRequest", b =>
+                {
+                    b.HasOne("Species.Data.Models.County", "County")
+                        .WithMany()
+                        .HasForeignKey("CountyId");
+
+                    b.HasOne("Species.Data.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("Species.Data.Models.Specie", "Specie")
+                        .WithMany()
+                        .HasForeignKey("SpecieId");
+                });
+
             modelBuilder.Entity("Species.Data.Models.SpecieInformation", b =>
                 {
                     b.HasOne("Species.Data.Models.Location", "Location")
@@ -404,6 +451,10 @@ namespace Species.Data.Migrations
                         .HasForeignKey("CountyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Species.Data.Models.PlantRequest", null)
+                        .WithMany("SubCounty")
+                        .HasForeignKey("PlantRequestId");
                 });
 #pragma warning restore 612, 618
         }

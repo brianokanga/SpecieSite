@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Species.Data.Data;
 
 namespace Species.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201003222528_repository")]
+    partial class repository
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,6 +275,9 @@ namespace Species.Data.Migrations
                     b.Property<int?>("SpecieId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SubCountyId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CountyId");
@@ -280,6 +285,8 @@ namespace Species.Data.Migrations
                     b.HasIndex("LocationId");
 
                     b.HasIndex("SpecieId");
+
+                    b.HasIndex("SubCountyId");
 
                     b.ToTable("PlantRequests");
                 });
@@ -340,14 +347,9 @@ namespace Species.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PlantRequestId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CountyId");
-
-                    b.HasIndex("PlantRequestId");
 
                     b.ToTable("SubCounties");
                 });
@@ -425,6 +427,10 @@ namespace Species.Data.Migrations
                     b.HasOne("Species.Data.Models.Specie", "Specie")
                         .WithMany()
                         .HasForeignKey("SpecieId");
+
+                    b.HasOne("Species.Data.Models.SubCounty", "SubCounty")
+                        .WithMany()
+                        .HasForeignKey("SubCountyId");
                 });
 
             modelBuilder.Entity("Species.Data.Models.SpecieInformation", b =>
@@ -449,10 +455,6 @@ namespace Species.Data.Migrations
                         .HasForeignKey("CountyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Species.Data.Models.PlantRequest", null)
-                        .WithMany("SubCounty")
-                        .HasForeignKey("PlantRequestId");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,7 +11,7 @@ namespace Species.Data.Repository.IRepository
         ILocationRepository Location { get; }
         ISpecieRepository Specie { get; }
         ISpecieInformationRepository SpecieInformation { get; }
-
+        IPlantRequestRepository PlantRequest { get; }
         ISP_Call SP_Call { get; }
     }
 }

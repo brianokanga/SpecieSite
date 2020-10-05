@@ -23,6 +23,7 @@ namespace Species.Data.Repository
             if (objFromDb != null)
             {
                 objFromDb.Name = specie.Name;
+                objFromDb.SpeciesDetails = specie.SpeciesDetails;
 
             }
         }

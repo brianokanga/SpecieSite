@@ -19,10 +19,12 @@ namespace Species.Data.Repository
 
         public void Update(SubCounty subCounty)
         {
-            var objFromDb = _db.Counties.FirstOrDefault(s => s.Id == subCounty.Id);
+            var objFromDb = _db.SubCounties.FirstOrDefault(s => s.Id == subCounty.Id);
             if (objFromDb != null)
             {
                 objFromDb.Name = subCounty.Name;
+                objFromDb.Locations = subCounty.Locations;
+                objFromDb.CountyId = subCounty.CountyId;
 
             }
         }

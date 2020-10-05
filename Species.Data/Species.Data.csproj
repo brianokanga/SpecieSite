@@ -11,16 +11,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201002103832_AddPlantRequestToDb.cs" />
+    <Compile Remove="Migrations\20201002103832_AddPlantRequestToDb.Designer.cs" />
+    <Compile Remove="Migrations\20201002103954_AddPlantRequestToDb.cs" />
+    <Compile Remove="Migrations\20201002103954_AddPlantRequestToDb.Designer.cs" />
+    <Compile Remove="Migrations\20201002104125_AddPlantRequestToDb.cs" />
+    <Compile Remove="Migrations\20201002104125_AddPlantRequestToDb.Designer.cs" />
+    <Compile Remove="Migrations\20201005025800_repositoryModify.cs" />
+    <Compile Remove="Migrations\20201005025800_repositoryModify.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
