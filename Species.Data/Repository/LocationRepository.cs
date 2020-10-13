@@ -23,9 +23,7 @@ namespace Species.Data.Repository
             if (objFromDb != null)
             {
                 objFromDb.Name = location.Name;
-                objFromDb.MapFile = location.MapFile;
-                objFromDb.SpeciesDetails = location.SpeciesDetails;
-                objFromDb.SubcountyId = location.SubcountyId;
+                
 
             }
         }

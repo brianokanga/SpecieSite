@@ -22,7 +22,6 @@ namespace Species.Data.Repository
             var objFromDb = _db.PlantRequests.FirstOrDefault(s => s.Id == plantRequest.Id);
             if (objFromDb != null)
             {
-                //objFromDb.Name = plantRequest.Name;
                 objFromDb.County = plantRequest.County;
                 objFromDb.SubCounty = plantRequest.SubCounty;
                 objFromDb.Location = plantRequest.Location;

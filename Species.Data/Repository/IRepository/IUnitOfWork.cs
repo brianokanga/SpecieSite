@@ -10,7 +10,7 @@ namespace Species.Data.Repository.IRepository
         ISubCountyRepository SubCounty { get; }
         ILocationRepository Location { get; }
         ISpecieRepository Specie { get; }
-        ISpecieInformationRepository SpecieInformation { get; }
+        ISpecieDetailRepository SpecieDetail { get; }
         IPlantRequestRepository PlantRequest { get; }
         ISP_Call SP_Call { get; }
 

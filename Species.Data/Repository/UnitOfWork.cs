@@ -18,7 +18,7 @@ namespace Species.Data.Repository
             SubCounty = new SubCountyRepository(_db);
             Location = new LocationRepository(_db);
             Specie = new SpecieRepository(_db);
-            SpecieInformation = new SpecieInformationRepository(_db);
+            SpecieDetail = new SpecieDetailRepository(_db);
             PlantRequest = new PlantRequestRepository(_db);
             SP_Call = new SP_Call(_db);
         }
@@ -27,7 +27,7 @@ namespace Species.Data.Repository
         public ISubCountyRepository SubCounty { get; private set; }
         public ILocationRepository Location { get; private set; }
         public ISpecieRepository Specie { get; private set; }
-        public ISpecieInformationRepository SpecieInformation { get; private set; }
+        public ISpecieDetailRepository SpecieDetail { get; }
         public IPlantRequestRepository PlantRequest { get; private set; }
         public ISP_Call SP_Call { get; private set; }
 

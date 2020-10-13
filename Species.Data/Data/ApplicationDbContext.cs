@@ -13,7 +13,7 @@ namespace Species.Data.Data {
         public DbSet<SubCounty> SubCounties { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Specie> Species { get; set; }
-        public DbSet<SpecieDetail> SpecieInformations { get; set; }
+        public DbSet<SpecieDetail> SpecieDetails { get; set; }
         public DbSet<PlantRequest> PlantRequests { get; set; }
 
     }

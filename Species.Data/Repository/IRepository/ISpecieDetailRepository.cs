@@ -5,8 +5,9 @@ using Species.Data.Models;
 
 namespace Species.Data.Repository.IRepository
 {
-    public interface ISpecieInformationRepository : IRepository<SpecieInformation>
+    public interface ISpecieDetailRepository : IRepository<SpecieDetail>
     {
-        void Update(SpecieInformation specieInformation);
+        void Update(SpecieDetail specieDetail);
     }
+
 }

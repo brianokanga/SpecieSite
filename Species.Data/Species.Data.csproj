@@ -6,11 +6,8 @@
 
   <ItemGroup>
     <Compile Remove="Data\Migrations\**" />
-    <Compile Remove="Repository\**" />
     <EmbeddedResource Remove="Data\Migrations\**" />
-    <EmbeddedResource Remove="Repository\**" />
     <None Remove="Data\Migrations\**" />
-    <None Remove="Repository\**" />
   </ItemGroup>
 
   <ItemGroup>
