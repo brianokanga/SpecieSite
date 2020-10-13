@@ -112,7 +112,6 @@ namespace Species.Areas.Admin.Controllers
             return Json(new { success = true, message = "Delete Successful" });
 
         }
-
         #endregion
     }
 }
