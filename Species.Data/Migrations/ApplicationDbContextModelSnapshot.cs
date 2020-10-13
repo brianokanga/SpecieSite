@@ -229,7 +229,12 @@ namespace Species.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PlantRequestId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PlantRequestId");
 
                     b.ToTable("Counties");
                 });
@@ -241,18 +246,15 @@ namespace Species.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MapFile")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubcountyId")
+                    b.Property<int>("SubCountyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubcountyId");
+                    b.HasIndex("SubCountyId");
 
                     b.ToTable("Locations");
                 });
@@ -264,13 +266,16 @@ namespace Species.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CountyId")
+                    b.Property<int>("CountyId")
                         .HasColumnType("int");
 
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SpecieId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubCountyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -280,6 +285,8 @@ namespace Species.Data.Migrations
                     b.HasIndex("LocationId");
 
                     b.HasIndex("SpecieId");
+
+                    b.HasIndex("SubCountyId");
 
                     b.ToTable("PlantRequests");
                 });
@@ -299,30 +306,27 @@ namespace Species.Data.Migrations
                     b.ToTable("Species");
                 });
 
-            modelBuilder.Entity("Species.Data.Models.SpecieInformation", b =>
+            modelBuilder.Entity("Species.Data.Models.SpecieDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
+                    b.Property<string>("MapUrl")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SpeciesId")
+                    b.Property<int>("SpecieId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
 
-                    b.HasIndex("SpeciesId");
+                    b.HasIndex("SpecieId");
 
                     b.ToTable("SpecieInformations");
                 });
@@ -340,14 +344,9 @@ namespace Species.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PlantRequestId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CountyId");
-
-                    b.HasIndex("PlantRequestId");
 
                     b.ToTable("SubCounties");
                 });
@@ -403,11 +402,18 @@ namespace Species.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Species.Data.Models.County", b =>
+                {
+                    b.HasOne("Species.Data.Models.PlantRequest", null)
+                        .WithMany("Counties")
+                        .HasForeignKey("PlantRequestId");
+                });
+
             modelBuilder.Entity("Species.Data.Models.Location", b =>
                 {
                     b.HasOne("Species.Data.Models.SubCounty", "SubCounty")
                         .WithMany("Locations")
-                        .HasForeignKey("SubcountyId")
+                        .HasForeignKey("SubCountyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -416,7 +422,9 @@ namespace Species.Data.Migrations
                 {
                     b.HasOne("Species.Data.Models.County", "County")
                         .WithMany()
-                        .HasForeignKey("CountyId");
+                        .HasForeignKey("CountyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Species.Data.Models.Location", "Location")
                         .WithMany()
@@ -425,19 +433,23 @@ namespace Species.Data.Migrations
                     b.HasOne("Species.Data.Models.Specie", "Specie")
                         .WithMany()
                         .HasForeignKey("SpecieId");
+
+                    b.HasOne("Species.Data.Models.SubCounty", "SubCounty")
+                        .WithMany()
+                        .HasForeignKey("SubCountyId");
                 });
 
-            modelBuilder.Entity("Species.Data.Models.SpecieInformation", b =>
+            modelBuilder.Entity("Species.Data.Models.SpecieDetail", b =>
                 {
                     b.HasOne("Species.Data.Models.Location", "Location")
-                        .WithMany("SpeciesDetails")
+                        .WithMany("SpecieDetails")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Species.Data.Models.Specie", "Species")
-                        .WithMany("SpeciesDetails")
-                        .HasForeignKey("SpeciesId")
+                    b.HasOne("Species.Data.Models.Specie", "Specie")
+                        .WithMany("SpecieDetails")
+                        .HasForeignKey("SpecieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -449,10 +461,6 @@ namespace Species.Data.Migrations
                         .HasForeignKey("CountyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Species.Data.Models.PlantRequest", null)
-                        .WithMany("SubCounty")
-                        .HasForeignKey("PlantRequestId");
                 });
 #pragma warning restore 612, 618
         }

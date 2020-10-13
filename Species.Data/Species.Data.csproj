@@ -6,19 +6,11 @@
 
   <ItemGroup>
     <Compile Remove="Data\Migrations\**" />
+    <Compile Remove="Repository\**" />
     <EmbeddedResource Remove="Data\Migrations\**" />
+    <EmbeddedResource Remove="Repository\**" />
     <None Remove="Data\Migrations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20201002103832_AddPlantRequestToDb.cs" />
-    <Compile Remove="Migrations\20201002103832_AddPlantRequestToDb.Designer.cs" />
-    <Compile Remove="Migrations\20201002103954_AddPlantRequestToDb.cs" />
-    <Compile Remove="Migrations\20201002103954_AddPlantRequestToDb.Designer.cs" />
-    <Compile Remove="Migrations\20201002104125_AddPlantRequestToDb.cs" />
-    <Compile Remove="Migrations\20201002104125_AddPlantRequestToDb.Designer.cs" />
-    <Compile Remove="Migrations\20201005025800_repositoryModify.cs" />
-    <Compile Remove="Migrations\20201005025800_repositoryModify.Designer.cs" />
+    <None Remove="Repository\**" />
   </ItemGroup>
 
   <ItemGroup>

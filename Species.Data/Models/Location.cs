@@ -6,11 +6,15 @@ namespace Species.Data.Models
 {
     public class Location
     {
+        public Location()
+        {
+            SpecieDetails = new List<SpecieDetail>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
-        public int SubcountyId { get; set; }
-        public SubCounty SubCounty { get; set; }
-        public string MapFile { get; set; }
-        public ICollection<SpecieInformation> SpeciesDetails { get; set; }
+        public int SubCountyId { get; set; }
+        public virtual SubCounty SubCounty { get; set; }
+        public virtual ICollection<SpecieDetail> SpecieDetails { get; set; }
     }
 }

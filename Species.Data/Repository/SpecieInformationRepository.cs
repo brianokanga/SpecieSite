@@ -22,12 +22,7 @@ namespace Species.Data.Repository
             var objFromDb = _db.SpecieInformations.FirstOrDefault(s => s.Id == specieInformation.Id);
             if (objFromDb != null)
             {
-                objFromDb.Species = specieInformation.Species;
-                objFromDb.Location = specieInformation.Location;
-                objFromDb.Latitude = specieInformation.Latitude;
-                objFromDb.Longitude = specieInformation.Longitude;
-                objFromDb.LocationId = specieInformation.LocationId;
-                objFromDb.SpeciesId = specieInformation.SpeciesId;
+                
             }
         }
     }

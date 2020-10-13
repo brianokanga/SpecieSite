@@ -10,8 +10,8 @@ using Species.Data.Data;
 namespace Species.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201005024025_plantRequest")]
-    partial class plantRequest
+    [Migration("20201013122506_AddDefaultIdentityToDb")]
+    partial class AddDefaultIdentityToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,139 +221,6 @@ namespace Species.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Species.Data.Models.County", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Counties");
-                });
-
-            modelBuilder.Entity("Species.Data.Models.Location", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("MapFile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SubcountyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubcountyId");
-
-                    b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("Species.Data.Models.PlantRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CountyId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SpecieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountyId");
-
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("SpecieId");
-
-                    b.ToTable("PlantRequests");
-                });
-
-            modelBuilder.Entity("Species.Data.Models.Specie", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Species");
-                });
-
-            modelBuilder.Entity("Species.Data.Models.SpecieInformation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<int>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<int>("SpeciesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("SpeciesId");
-
-                    b.ToTable("SpecieInformations");
-                });
-
-            modelBuilder.Entity("Species.Data.Models.SubCounty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CountyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PlantRequestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountyId");
-
-                    b.HasIndex("PlantRequestId");
-
-                    b.ToTable("SubCounties");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -403,58 +270,6 @@ namespace Species.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Species.Data.Models.Location", b =>
-                {
-                    b.HasOne("Species.Data.Models.SubCounty", "SubCounty")
-                        .WithMany("Locations")
-                        .HasForeignKey("SubcountyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Species.Data.Models.PlantRequest", b =>
-                {
-                    b.HasOne("Species.Data.Models.County", "County")
-                        .WithMany()
-                        .HasForeignKey("CountyId");
-
-                    b.HasOne("Species.Data.Models.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
-
-                    b.HasOne("Species.Data.Models.Specie", "Specie")
-                        .WithMany()
-                        .HasForeignKey("SpecieId");
-                });
-
-            modelBuilder.Entity("Species.Data.Models.SpecieInformation", b =>
-                {
-                    b.HasOne("Species.Data.Models.Location", "Location")
-                        .WithMany("SpeciesDetails")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Species.Data.Models.Specie", "Species")
-                        .WithMany("SpeciesDetails")
-                        .HasForeignKey("SpeciesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Species.Data.Models.SubCounty", b =>
-                {
-                    b.HasOne("Species.Data.Models.County", "County")
-                        .WithMany("SubCounties")
-                        .HasForeignKey("CountyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Species.Data.Models.PlantRequest", null)
-                        .WithMany("SubCounty")
-                        .HasForeignKey("PlantRequestId");
                 });
 #pragma warning restore 612, 618
         }
