@@ -15,7 +15,7 @@ namespace Species.Areas.Admin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        
+
         public PlantRequestController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
         {
             _unitOfWork = unitOfWork;
@@ -95,7 +95,7 @@ namespace Species.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var allObj = _unitOfWork.PlantRequest.GetAll(includeProperties:"County, SubCounty, Location, Specie");
+            var allObj = _unitOfWork.PlantRequest.GetAll(includeProperties: "County, SubCounty, Location, Specie");
             return Json(new { data = allObj });
         }
 
