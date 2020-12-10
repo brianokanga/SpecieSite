@@ -1,6 +1,6 @@
 using System;
 
-namespace Species.Models
+namespace Species.ViewModels
 {
     public class ErrorViewModel
     {
